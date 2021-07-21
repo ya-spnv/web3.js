@@ -179,7 +179,7 @@ Method.prototype.formatOutput = function (result) {
 Method.prototype.toPayload = function (args) {
     var call = this.getCall(args);
     var callback = this.extractCallback(args);
-    
+
     var params = this.formatInput(args);
     this.validateArgs(params);
 
@@ -548,7 +548,7 @@ Method.prototype._confirmTransaction = function (defer, result, payload) {
     // start watching for confirmation depending on the support features of the provider
     var startWatching = function (existingReceipt) {
         const startInterval = () => {
-            intervalId = setInterval(checkConfirmation.bind(null, existingReceipt, true), 1000);
+            intervalId = setInterval(checkConfirmation.bind(null, existingReceipt, true), 5000);
         };
 
         if (!this.requestManager.provider.on) {
@@ -689,7 +689,7 @@ Method.prototype.buildCall = function () {
         // SENDS the SIGNED SIGNATURE
         var sendSignedTx = function (sign) {
 
-            var signedPayload = { ... payload, 
+            var signedPayload = { ... payload,
                 method: 'eth_sendRawTransaction',
                 params: [sign.rawTransaction]
             };
